@@ -38,13 +38,15 @@ class DataResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->poll('10s')
+            ->defaultSort('created_at', 'asc')
             ->columns([
                 Tables\Columns\TextColumn::make('nombre')
-                    ->searchable(),
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('id_sensor')
-                    ->searchable(),
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('valor')
-                    ->searchable(),
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
