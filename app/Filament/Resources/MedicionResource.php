@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DataResource\Pages;
-use App\Filament\Resources\DataResource\RelationManagers;
-use App\Models\Data;
+use App\Filament\Resources\MedicionResource\Pages;
+use App\Filament\Resources\MedicionResource\RelationManagers;
+use App\Models\Medicion;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,40 +13,41 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DataResource extends Resource
+class MedicionResource extends Resource
 {
-    protected static ?string $model = Data::class;
-
+    protected static ?string $model = Medicion::class;
+    protected static ?string $navigationLabel = "Mediciones";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nombre')
+                Forms\Components\TextInput::make('sensor_id')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('id_sensor')
+                    ->numeric(),
+                Forms\Components\TextInput::make('tipo_medicion_id')
                     ->required()
-                    ->maxLength(255),
+                    ->numeric(),
                 Forms\Components\TextInput::make('valor')
                     ->required()
-                    ->maxLength(255),
+                    ->numeric(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
-            ->poll('10s')
-            ->defaultSort('created_at', 'asc')
             ->columns([
-                Tables\Columns\TextColumn::make('nombre')
-                    ->searchable(isIndividual: true),
-                Tables\Columns\TextColumn::make('id_sensor')
-                    ->searchable(isIndividual: true),
+                Tables\Columns\TextColumn::make('sensor_id')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('tipo_medicion_id')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('valor')
-                    ->searchable(isIndividual: true),
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -79,9 +80,9 @@ class DataResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListData::route('/'),
-            'create' => Pages\CreateData::route('/create'),
-            'edit' => Pages\EditData::route('/{record}/edit'),
+            'index' => Pages\ListMedicions::route('/'),
+            'create' => Pages\CreateMedicion::route('/create'),
+            'edit' => Pages\EditMedicion::route('/{record}/edit'),
         ];
     }
 }

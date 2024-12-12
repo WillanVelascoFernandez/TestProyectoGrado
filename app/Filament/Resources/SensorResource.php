@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\UserResource\Pages;
-use App\Filament\Resources\UserResource\RelationManagers;
-use App\Models\User;
+use App\Filament\Resources\SensorResource\Pages;
+use App\Filament\Resources\SensorResource\RelationManagers;
+use App\Models\Sensor;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,27 +13,29 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class UserResource extends Resource
+class SensorResource extends Resource
 {
-    protected static ?string $model = User::class;
-    protected static ?string $navigationLabel = "Usuarios";
-
+    protected static ?string $model = Sensor::class;
+    protected static ?string $navigationLabel = "Sensores";
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('nombre')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
+                Forms\Components\TextInput::make('ubicacion')
+                    ->maxLength(255)
+                    ->default(null),
+                Forms\Components\TextInput::make('longitud')
+                    ->numeric()
+                    ->default(null),
+                Forms\Components\TextInput::make('latitud')
+                    ->numeric()
+                    ->default(null),
+                Forms\Components\TextInput::make('tipo_sensor')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -43,13 +45,18 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                Tables\Columns\TextColumn::make('ubicacion')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('email_verified_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('longitud')
+                    ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('latitud')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('tipo_sensor')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -82,9 +89,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => Pages\ListSensors::route('/'),
+            'create' => Pages\CreateSensor::route('/create'),
+            'edit' => Pages\EditSensor::route('/{record}/edit'),
         ];
     }
 }

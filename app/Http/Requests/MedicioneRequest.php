@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DataRequest extends FormRequest
+class MedicioneRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class DataRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'nombre' => 'required|string',
-			'id_sensor' => 'required|string',
-			'valor' => 'required|string',
+			'sensor_id' => 'required',
+			'tipo_medicion_id' => 'required',
+			'valor' => 'required',
         ];
     }
 }
