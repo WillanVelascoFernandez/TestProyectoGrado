@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sensores', function (Blueprint $table) {
+        Schema::create('measurements', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('ubicacion')->nullable();
-            $table->float('longitud')->nullable();
-            $table->float('latitud')->nullable();
-            $table->string('tipo_sensor');
+            $table->foreignId('parameter_id')->constrained('parameters')->onDelete('cascade'); // Relación con 'parameters'
+            $table->double('value');
+            $table->timestamp('measured_at');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sensores');
+        Schema::dropIfExists('measurements');
     }
 };

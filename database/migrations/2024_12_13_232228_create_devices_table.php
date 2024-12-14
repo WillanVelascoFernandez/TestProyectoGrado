@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mediciones', function (Blueprint $table) {
+        Schema::create('devices', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sensor_id')->constrained('sensores');
-            $table->foreignId('tipo_medicion_id')->constrained('tipos_medicion');
-            $table->float('valor');
+            $table->string('name');
+            $table->string('location');
+            $table->decimal('latitude', 10, 8)->nullable(); // Hasta 8 decimales para precisión
+            $table->decimal('longitude', 11, 8)->nullable(); // Hasta 8 decimales para precisión
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mediciones');
+        Schema::dropIfExists('devices');
     }
 };

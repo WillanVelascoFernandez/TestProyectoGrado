@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipos_medicion', function (Blueprint $table) {
+        Schema::create('parameters', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('unidad');
+            $table->foreignId('module_id')->constrained('modules')->onDelete('cascade'); // Relación con 'modules'
+            $table->string('name');
+            $table->string('unit');
             $table->timestamps();
         });
     }
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipos_medicion');
+        Schema::dropIfExists('parameters');
     }
 };

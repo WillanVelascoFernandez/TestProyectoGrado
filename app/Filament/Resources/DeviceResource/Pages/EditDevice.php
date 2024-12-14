@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\SensorResource\Pages;
+namespace App\Filament\Resources\DeviceResource\Pages;
 
-use App\Filament\Resources\SensorResource;
+use App\Filament\Resources\DeviceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditSensor extends EditRecord
+class EditDevice extends EditRecord
 {
-    protected static string $resource = SensorResource::class;
+    protected static string $resource = DeviceResource::class;
 
     protected function getHeaderActions(): array
     {

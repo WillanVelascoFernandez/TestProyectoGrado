@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\MedicionResource\Pages;
+namespace App\Filament\Resources\ModuleResource\Pages;
 
-use App\Filament\Resources\MedicionResource;
+use App\Filament\Resources\ModuleResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditMedicion extends EditRecord
+class EditModule extends EditRecord
 {
-    protected static string $resource = MedicionResource::class;
+    protected static string $resource = ModuleResource::class;
 
     protected function getHeaderActions(): array
     {

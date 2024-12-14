@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\MedicionResource\Pages;
+namespace App\Filament\Resources\DeviceResource\Pages;
 
-use App\Filament\Resources\MedicionResource;
+use App\Filament\Resources\DeviceResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListMedicions extends ListRecords
+class ListDevices extends ListRecords
 {
-    protected static string $resource = MedicionResource::class;
+    protected static string $resource = DeviceResource::class;
 
     protected function getHeaderActions(): array
     {
